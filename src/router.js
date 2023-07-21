@@ -19,3 +19,8 @@ const handleLocation = async () => {
   const html = await fetch(route).then(data => data.text());
   document.getElementById('render-page').innerHTML = html;
 };
+
+window.onpopstate = handleLocation;
+window.route = route;
+
+handleLocation();

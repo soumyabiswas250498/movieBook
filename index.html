@@ -15,7 +15,7 @@
   <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-info-subtle">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">MovieBook</a>
+        <a class="navbar-brand" href="/" onclick="route()">MovieBook</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -39,6 +39,7 @@
                 role="button"
                 aria-disabled="true"
                 href="/add-movie"
+                onclick="route()"
                 >Add Movie</a
               >
             </li>
@@ -49,6 +50,7 @@
                 role="button"
                 aria-disabled="true"
                 href="/login"
+                onclick="route()"
                 >Login / SignUp</a
               >
             </li>
