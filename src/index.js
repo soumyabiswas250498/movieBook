@@ -84,8 +84,10 @@ function movieCardGenerator(moive) {
         <p>⭐ ${moive.rating}</p>
         <p>${moive.platform}</p>
       </div>
+      <br>
       <div class="card-review">
-        <div class="card-author">${moive.author}</div>
+        <div class="card-author"> - By ${moive.author}</div>
+        
         <div class="card-review-content">
           <p class="lh-sm">${moive.review}</p>
         </div>
@@ -140,6 +142,7 @@ function userHandler(name) {
 // Handle logout
 
 const logoutHandler = () => {
+  const account = new Account(client);
   const promise = account.deleteSession('current');
 
   promise.then(
