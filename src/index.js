@@ -46,7 +46,6 @@ async function populateMovieCard() {
 
   let movieData = apiData.documents;
   console.log(movieData);
-
   movieData.forEach(moive => {
     movieCardGenerator(moive);
     // console.log(moive);
@@ -204,11 +203,15 @@ function modalAlertSuccessHandler(str) {
 
 async function createDocument(object) {
   const databases = new Databases(client);
-  const promise = await databases.createDocument(
-    '64ba269938b769883966',
-    '64ba8f2a7b1b54e88fad',
-    ID.unique(),
-    object
-  );
-  return promise;
+  try {
+    const promise = await databases.createDocument(
+      '64ba269938b769883966',
+      '64ba8f2a7b1b54e88fad',
+      ID.unique(),
+      object
+    );
+    return promise;
+  } catch (error) {
+    modalAlertErrorHandler('Backend not reachable. Try again later.');
+  }
 }
