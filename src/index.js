@@ -22,6 +22,13 @@ async function getClient() {
 
 clientName = await getClient();
 
+// check if any alert and show
+
+console.log();
+if (localStorage.alert) {
+  let alert = localStorage.getItem('alert');
+  modalAlertSuccessHandler(alert);
+}
 //  Fetch data from the api server
 async function populateMovieCard() {
   const databases = new Databases(client);
@@ -58,10 +65,17 @@ function movieCardGenerator(moive) {
   const cardElement = document.createElement('div');
   cardElement.classList.add('card-section');
   cardElement.innerHTML = `
+  <div id="movie-card-remove">
   <h2 class="card-name">${moive.title}</h2>
   <div class="card-detail d-sm-flex align-items-center">
     <div class="card-image">
-      <img src="${moive.imgUrl}" height="200px" width="150px" alt="" srcset="" />
+      <img
+        src="${moive.imgUrl}"
+        height="200px"
+        width="150px"
+        alt=""
+        srcset=""
+      />
     </div>
     <div class="card-text">
       <div class="card-category">
@@ -78,6 +92,8 @@ function movieCardGenerator(moive) {
       </div>
     </div>
   </div>
+</div>
+
     `;
   const selectElement = document.querySelector('#render-movies');
   selectElement.append(cardElement);
@@ -174,11 +190,18 @@ movieModalSubmit.addEventListener('click', () => {
       author: clientName,
       review: review,
     };
-    const response = createDocument(newMovie);
-    console.log(response);
-    populateMovieCard();
-    toggleModal();
-    modalAlertSuccessHandler('Your review added successfully!');
+
+    async function sendDocument() {
+      try {
+        const response = await createDocument(newMovie);
+        localStorage.setItem('alert', 'Your review added successfully!');
+        document.location.href = '/index.html';
+        return response;
+      } catch {}
+    }
+    sendDocument();
+
+    // ----------------------------------------------------
   } else {
     modalAlertErrorHandler('One or more mandetory field is invalid or empty');
   }
@@ -198,6 +221,7 @@ function modalAlertSuccessHandler(str) {
   modalAlert.innerHTML = `<div class="alert alert-success">${str}</div>`;
   setTimeout(() => {
     modalAlert.classList.add('hide');
+    localStorage.removeItem('alert');
   }, 4000);
 }
 
