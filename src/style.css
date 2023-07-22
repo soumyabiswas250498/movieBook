@@ -5,26 +5,26 @@
 
 .content-section {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
-
 .card-section {
-  margin: 15px;
+  margin-top: 15px;
   padding: 10px;
-  width: 50rem;
+  width: 90vw;
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 3px 3px 12px 3px gray;
 }
 .card-category {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
+  /* width: 9rem; */
 }
 
 .card-category > * {
   padding: 0px 10px 0px 10px;
-  margin: 0px 26px 0px 13px;
+  /* margin: 0px 5px 0px 5px; */
   border: 1px solid lightblue;
   border-radius: 5px;
 }
@@ -46,4 +46,30 @@
 .nav-item {
   margin-right: 5px;
   margin-top: 5px;
+}
+
+.modal-window {
+  margin-top: 15px;
+  padding: 10px;
+  width: 90vw;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 3px 3px 12px 3px gray;
+  /* display: none; */
+}
+.addmovies-modal {
+  display: flex;
+  justify-content: center;
+}
+
+.user {
+  padding-top: 4px;
+  color: rgb(99, 42, 165);
+}
+
+.hide {
+  display: none;
+}
+.visible {
+  display: contents;
 }
