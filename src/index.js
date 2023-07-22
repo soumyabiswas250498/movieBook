@@ -23,26 +23,37 @@ async function getClient() {
 clientName = await getClient();
 
 //  Fetch data from the api server
-
-const databases = new Databases(client);
-async function getData() {
+async function populateMovieCard() {
   const databases = new Databases(client);
-  const response = await databases.listDocuments(
-    '64ba269938b769883966',
-    '64ba8f2a7b1b54e88fad'
-  );
 
-  return response;
+  async function getData() {
+    const databases = new Databases(client);
+    try {
+      const response = await databases.listDocuments(
+        '64ba269938b769883966',
+        '64ba8f2a7b1b54e88fad'
+      );
+
+      return response;
+    } catch (error) {
+      modalAlertSuccessHandler(
+        'Back-end server not reachable. Try again later'
+      );
+    }
+  }
+
+  let apiData = await getData();
+
+  let movieData = apiData.documents;
+  console.log(movieData);
+
+  movieData.forEach(moive => {
+    movieCardGenerator(moive);
+    // console.log(moive);
+  });
 }
-let apiData = await getData();
 
-let movieData = apiData.documents;
-// console.log(movieData);
-
-movieData.forEach(moive => {
-  movieCardGenerator(moive);
-  // console.log(moive);
-});
+populateMovieCard();
 
 function movieCardGenerator(moive) {
   const cardElement = document.createElement('div');
@@ -166,7 +177,7 @@ movieModalSubmit.addEventListener('click', () => {
     };
     const response = createDocument(newMovie);
     console.log(response);
-
+    populateMovieCard();
     toggleModal();
     modalAlertSuccessHandler('Your review added successfully!');
   } else {
