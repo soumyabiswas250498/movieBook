@@ -165,9 +165,6 @@ movieModalSubmit.addEventListener('click', () => {
   const addMovieArray = [...document.querySelectorAll('.add-movie-input')];
   const genreSelect = document.getElementById('genre');
   const languageSelect = document.getElementById('language');
-  // console.log(genreSelect.value);
-  // console.log(languageSelect.value);
-  // console.log(addMovieArray);
   const name = addMovieArray[0].value;
   const image = addMovieArray[1].value || '/src/movie.jpg';
   const rating = parseInt(addMovieArray[2].value);
@@ -203,8 +200,6 @@ movieModalSubmit.addEventListener('click', () => {
       } catch {}
     }
     sendDocument();
-
-    // ----------------------------------------------------
   } else {
     modalAlertErrorHandler('One or more mandetory field is invalid or empty');
   }
@@ -242,3 +237,20 @@ async function createDocument(object) {
     modalAlertErrorHandler('Backend not reachable. Try again later.');
   }
 }
+
+//  Handle modal cancel
+const cancelButtom = document.getElementById('add-movie-cancel');
+cancelButtom.addEventListener('click', () => {
+  console.log('hello');
+  const addMovieArray = [...document.querySelectorAll('.add-movie-input')];
+  const genreSelect = document.getElementById('genre');
+  const languageSelect = document.getElementById('language');
+  addMovieArray[0].value = '';
+  addMovieArray[1].value = '';
+  addMovieArray[2].value = '';
+  addMovieArray[3].value = '';
+  addMovieArray[4].value = '';
+  genreSelect.value = 'Genre';
+  languageSelect.value = 'Language';
+  toggleModal();
+});
