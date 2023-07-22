@@ -1,7 +1,7 @@
 'use strict';
 const { Client, Databases, Account, ID } = Appwrite;
 const client = new Client();
-const account = new Account(client);
+
 client
   .setEndpoint('https://cloud.appwrite.io/v1')
   .setProject('64ba264e41167ff9cc7d');
@@ -10,6 +10,7 @@ client
 let clientName = null;
 
 async function getClient() {
+  const account = new Account(client);
   try {
     const clientData = await account.get();
     return clientData.name;
@@ -20,7 +21,6 @@ async function getClient() {
 }
 
 clientName = await getClient();
-console.log('hello ' + clientName);
 
 //  Fetch data from the api server
 
@@ -48,33 +48,26 @@ function movieCardGenerator(moive) {
   const cardElement = document.createElement('div');
   cardElement.classList.add('card-section');
   cardElement.innerHTML = `
-    <h2 class="card-name">${moive.title}</h2>
-    <div class="card-detail d-sm-flex align-items-center">
-      <img
-        src="${moive.imgUrl}"
-        height="200px"
-        width="150px"
-        alt=""
-        srcset=""
-      />
-      <div class="card-text">
-        <div class="card-category">
-          <p>${moive.lenguage}</p>
-          <p>${moive.genre}</p>
-          <p>⭐ ${moive.rating}</p>
-          <p> ${moive.platform}</p>
-        </div>
-
-        <div class="card-review">
-          <div class="card-author">${moive.author}</div>
-          <div class="card-review-content">
-            <p class="lh-sm">
-            ${moive.review}
-            </p>
-          </div>
+  <h2 class="card-name">${moive.title}</h2>
+  <div class="card-detail d-sm-flex align-items-center">
+    <div class="card-image">
+      <img src="${moive.imgUrl}" height="200px" width="150px" alt="" srcset="" />
+    </div>
+    <div class="card-text">
+      <div class="card-category">
+        <p>${moive.lenguage}</p>
+        <p>${moive.genre}</p>
+        <p>⭐ ${moive.rating}</p>
+        <p>${moive.platform}</p>
+      </div>
+      <div class="card-review">
+        <div class="card-author">${moive.author}</div>
+        <div class="card-review-content">
+          <p class="lh-sm">${moive.review}</p>
         </div>
       </div>
     </div>
+  </div>
     `;
   const selectElement = document.querySelector('#render-movies');
   selectElement.append(cardElement);
