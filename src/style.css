@@ -66,6 +66,9 @@
   padding-top: 4px;
   color: rgb(99, 42, 165);
 }
+/* #modal-alert-error {
+  margin-bottom: -15px;
+} */
 
 .hide {
   display: none;

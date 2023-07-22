@@ -99,8 +99,6 @@ function toggleModal() {
   selectModal.classList.toggle('hide');
 }
 
-//cancel button
-
 // handle logout and login button user view/hide
 
 const logoutButton = document.getElementById('logout-button');
@@ -137,3 +135,76 @@ const logoutHandler = () => {
 };
 
 logoutButton.addEventListener('click', logoutHandler);
+
+// handel add movie modal functionality
+
+const movieModalSubmit = document.getElementById('add-movie-submit');
+movieModalSubmit.addEventListener('click', () => {
+  const addMovieArray = [...document.querySelectorAll('.add-movie-input')];
+  const genreSelect = document.getElementById('genre');
+  const languageSelect = document.getElementById('language');
+  // console.log(genreSelect.value);
+  // console.log(languageSelect.value);
+  // console.log(addMovieArray);
+  const name = addMovieArray[0].value;
+  const image = addMovieArray[1].value || '/src/movie.jpg';
+  const rating = parseInt(addMovieArray[2].value);
+  const platform = addMovieArray[3].value || 'N/A';
+  const review = addMovieArray[4].value;
+  const genre = genreSelect.value;
+  const language = languageSelect.value;
+  if (
+    name &&
+    rating <= 5 &&
+    rating >= 0 &&
+    review &&
+    genre !== 'Genre' &&
+    language !== 'Language'
+  ) {
+    const newMovie = {
+      title: name,
+      imgUrl: image,
+      lenguage: language,
+      genre: genre,
+      rating: rating.toString(),
+      platform: platform,
+      author: clientName,
+      review: review,
+    };
+    const response = createDocument(newMovie);
+    console.log(response);
+
+    toggleModal();
+    modalAlertSuccessHandler('Your review added successfully!');
+  } else {
+    modalAlertErrorHandler('One or more mandetory field is invalid or empty');
+  }
+});
+
+function modalAlertErrorHandler(str) {
+  const modalAlert = document.getElementById('modal-alert-error');
+  modalAlert.classList.remove('hide');
+  modalAlert.innerHTML = `<div class="alert alert-danger">${str}</div>`;
+  setTimeout(() => {
+    modalAlert.classList.add('hide');
+  }, 5000);
+}
+function modalAlertSuccessHandler(str) {
+  const modalAlert = document.getElementById('modal-alert-success');
+  modalAlert.classList.remove('hide');
+  modalAlert.innerHTML = `<div class="alert alert-success">${str}</div>`;
+  setTimeout(() => {
+    modalAlert.classList.add('hide');
+  }, 4000);
+}
+
+async function createDocument(object) {
+  const databases = new Databases(client);
+  const promise = await databases.createDocument(
+    '64ba269938b769883966',
+    '64ba8f2a7b1b54e88fad',
+    ID.unique(),
+    object
+  );
+  return promise;
+}
