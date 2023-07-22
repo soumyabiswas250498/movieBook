@@ -76,3 +76,10 @@
 .visible {
   display: contents;
 }
+
+@media (max-width: 600px) {
+  .card-image {
+    display: flex;
+    justify-content: center;
+  }
+}
