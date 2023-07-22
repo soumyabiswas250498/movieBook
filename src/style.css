@@ -21,6 +21,13 @@
   justify-content: space-between;
   /* width: 9rem; */
 }
+@media (min-width: 600px) {
+  .card-category {
+    display: flex;
+    justify-content: left;
+    /* width: 9rem; */
+  }
+}
 
 .card-category > * {
   padding: 0px 5px 0px 5px;
