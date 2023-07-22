@@ -84,7 +84,13 @@ function movieCardGenerator(moive) {
 //add movie button
 
 const selectAddMovie = document.getElementById('add-movie');
-selectAddMovie.addEventListener('click', toggleModal);
+selectAddMovie.addEventListener('click', () => {
+  if (clientName) {
+    toggleModal();
+  } else {
+    document.location.href = '/login.html';
+  }
+});
 
 function toggleModal() {
   let selectModal = document.getElementById('addmovies-modal');
@@ -95,17 +101,23 @@ function toggleModal() {
 
 //cancel button
 
-// handle logout and login button view/hide
+// handle logout and login button user view/hide
 
 const logoutButton = document.getElementById('logout-button');
 const loginButton = document.getElementById('login-button');
+const userElement = document.getElementById('user');
 
 if (clientName) {
   loginButton.classList.add('hide');
   logoutButton.classList.remove('hide');
+  userHandler(clientName);
 } else {
   loginButton.classList.remove('hide');
   logoutButton.classList.add('hide');
+}
+
+function userHandler(name) {
+  userElement.innerHTML = `<p class="user">Welcome ${name}</p>`;
 }
 
 // Handle logout
